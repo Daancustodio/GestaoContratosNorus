@@ -1,0 +1,14 @@
+C:\xampp\htdocs\GestaoContratosNorus\bin\Debug\netcoreapp2.2\GestaoContratosNorus.deps.json
+C:\xampp\htdocs\GestaoContratosNorus\bin\Debug\netcoreapp2.2\GestaoContratosNorus.runtimeconfig.json
+C:\xampp\htdocs\GestaoContratosNorus\bin\Debug\netcoreapp2.2\GestaoContratosNorus.runtimeconfig.dev.json
+C:\xampp\htdocs\GestaoContratosNorus\bin\Debug\netcoreapp2.2\GestaoContratosNorus.dll
+C:\xampp\htdocs\GestaoContratosNorus\bin\Debug\netcoreapp2.2\GestaoContratosNorus.pdb
+C:\xampp\htdocs\GestaoContratosNorus\obj\Debug\netcoreapp2.2\GestaoContratosNorus.csprojAssemblyReference.cache
+C:\xampp\htdocs\GestaoContratosNorus\obj\Debug\netcoreapp2.2\GestaoContratosNorus.csproj.CoreCompileInputs.cache
+C:\xampp\htdocs\GestaoContratosNorus\obj\Debug\netcoreapp2.2\GestaoContratosNorus.RazorAssemblyInfo.cache
+C:\xampp\htdocs\GestaoContratosNorus\obj\Debug\netcoreapp2.2\GestaoContratosNorus.RazorAssemblyInfo.cs
+C:\xampp\htdocs\GestaoContratosNorus\obj\Debug\netcoreapp2.2\GestaoContratosNorus.AssemblyInfoInputs.cache
+C:\xampp\htdocs\GestaoContratosNorus\obj\Debug\netcoreapp2.2\GestaoContratosNorus.AssemblyInfo.cs
+C:\xampp\htdocs\GestaoContratosNorus\obj\Debug\netcoreapp2.2\GestaoContratosNorus.RazorTargetAssemblyInfo.cache
+C:\xampp\htdocs\GestaoContratosNorus\obj\Debug\netcoreapp2.2\GestaoContratosNorus.dll
+C:\xampp\htdocs\GestaoContratosNorus\obj\Debug\netcoreapp2.2\GestaoContratosNorus.pdb
