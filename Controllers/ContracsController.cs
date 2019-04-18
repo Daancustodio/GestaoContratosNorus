@@ -27,6 +27,8 @@ namespace GestaoContratosNorus.Controllers
                 Value = 500.00m
             });
             return this.repository.GetAll();
+
+            
         }
 
         // GET api/values/5
