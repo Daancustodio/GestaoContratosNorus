@@ -51,6 +51,7 @@ namespace GestaoContratosNorus
 
             app.UseHttpsRedirection();
             app.UseMvc();
+            app.UseCors(MyAllowSpecificOrigins);
             
         }
     }
