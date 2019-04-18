@@ -1,0 +1,105 @@
+<mvc:View 
+	controllerName="app.controller.contrato.Edit"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:l="sap.ui.layout"
+	xmlns:core="sap.ui.core" 
+	xmlns="sap.m">
+
+	<Page 
+	id="settingsPage"  
+	navButtonPress="onNavBack" 
+	showNavButton="true"
+	floatingFooter="true"	
+	>
+
+		<content>
+			<IconTabBar id="idIconTabBar" applyContentPadding="true" select="onChangeTab" >
+				<items>
+					<IconTabFilter icon="sap-icon://add-document" iconColor="Positive" text="{i18n>Commom.New}">					
+						<l:Grid defaultSpan="L4 M6 S6" class="sapUiSmallMarginTop">
+							<l:content>										
+								<VBox>																								
+									<Label  text="Nome do cliente"  />				
+									<Input id="userName" placeholder="Nome do cliente" value="{Contract>/ClientName}"></Input>
+																	
+								</VBox>		
+								<VBox>																								
+									<Label  text="Tipo do Contrato (Compra e Venda)"  />				
+									<Select										
+										selectedKey="{Contract>/Type}"
+										                      
+										items="{path: 'oContractTypes>/', templateShareable:false}">
+										<core:Item key="{oContractTypes>Id}"  text="{oContractTypes>Description}" />
+									</Select>																	
+								</VBox>		
+								<VBox>																								
+									<Label text="início do contrato" />
+									<DatePicker
+										id="DP1"
+										placeholder="Entre com a data ..." />																		
+								</VBox>	
+								<VBox>																								
+									<Label  text="Quantidade negociada"  />				
+									<Input type="Number" placeholder="Quantidade negociada" value="{Contract>/Quantity}"></Input>
+																										
+								</VBox>		
+								<VBox>																								
+									<Label  text="Valor negociado"  />				
+									<Input  type="Number" placeholder="Ex: 500,00" value="{Contract>/Value}"></Input>
+																										
+								</VBox>		
+								
+								<VBox>																								
+									<Label  text="Duração em meses do contrato"  />				
+									<Input  type="Number" placeholder="Ex: 6" value="{Contract>/Duration}"></Input>
+																										
+								</VBox>	
+							</l:content>
+						</l:Grid>
+					</IconTabFilter>
+					<IconTabSeparator />
+					<IconTabFilter key="list" icon="sap-icon://activity-items" iconColor="{path : 'Settings>/MaxRecordsPerSearch', formatter: '.formatter.formatIconColor'}" text="{i18n>Commom.Contracts}">					
+																									
+								
+									<List
+									id="idList"
+									headerText="Contratos" 
+									items="{Contracs>/}"
+									selectionChange="onSelectionChange"
+									mode="MultiSelect"
+									includeItemInSelection="true" >
+									<infoToolbar>
+										<Toolbar
+											visible="false"
+											id="idInfoToolbar" >
+											<Label id="idFilterLabel" />
+										</Toolbar>
+									</infoToolbar>
+									<items>
+										<StandardListItem
+											title="{ClientName}"
+											description="{ProductId}"
+											icon="{ProductPicUrl}"
+											iconDensityAware="false"
+											iconInset="false" />
+									</items>
+								</List>
+							
+					</IconTabFilter>
+					<IconTabSeparator />					
+					
+				</items>
+			</IconTabBar>
+		</content>	
+		<footer>
+			<Bar>
+				
+				<contentRight>
+					<Button  width="11rem" text="Criar" type="Accept" press="onCreate"></Button>
+					
+				</contentRight>
+			</Bar>
+		</footer>	
+	</Page>
+</mvc:View>
