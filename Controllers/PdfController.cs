@@ -20,7 +20,7 @@ namespace GestaoContratosNorus.Controllers
     public class PdfCreatorController : ControllerBase
     {
         private IConverter _converter;
-        private string _PDFLocale= @".\files\PDFCreator\minuta.pdf";
+        private string _PDFLocale= "./files/PDFCreator/minuta.pdf";
 
         public PdfCreatorController(IConverter converter)
         {
