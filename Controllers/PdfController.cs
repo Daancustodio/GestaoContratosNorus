@@ -46,17 +46,8 @@ namespace GestaoContratosNorus.Controllers
                 };
 
                 _converter.Convert(pdf);
-                var buffer = System.IO.File.ReadAllBytes(this._PDFLocale);
-                string pdfString = Convert.ToBase64String(buffer);
-                HttpContext.Response.ContentType = "application/pdf";
- 
-                string filename = @"minuta.pdf";
-                HttpContext.Response.Headers.Add("x-filename", filename);
-                HttpContext.Response.Headers.Add("Access-Control-Expose-Headers", "x-filename");
-                HttpContext.Response.Body.Write(buffer, 0, buffer.Length);
-    
-                return new ContentResult();
-                //return File(buffer, "application/pdf");
+                var buffer = System.IO.File.ReadAllBytes(this._PDFLocale);               
+                return File(buffer, "application/pdf");
             }
             catch (System.Exception)
             {
