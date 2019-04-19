@@ -56,19 +56,9 @@ namespace GestaoContratosNorus
                 app.UseHsts();
             }
 
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(
-                Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "files")),
-                RequestPath = "/PDFCreator"
-            });
+            app.UseStaticFiles();
 
-            app.UseDirectoryBrowser(new DirectoryBrowserOptions
-            {
-                FileProvider = new PhysicalFileProvider(
-                    Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "files")),
-                RequestPath = "/PDFCreator"
-            });
+           
             app.UseCors("MyPolicy");
             app.UseMvc();
 
