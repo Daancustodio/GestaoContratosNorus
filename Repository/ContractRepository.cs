@@ -50,8 +50,8 @@ namespace GestaoContratosNorus.Repository
 
         public Contract Add(Contract contract)
         {
-            if(string.IsNullOrEmpty(contract.Id))
-                contract.Id = new Guid().ToString();
+            if(string.IsNullOrEmpty(contract.Id) || contract.Id == Guid.Empty.ToString())
+                contract.Id =  Guid.NewGuid().ToString().Split("-")[0].ToUpper();
            
             contract.validate();
 
@@ -83,6 +83,22 @@ namespace GestaoContratosNorus.Repository
         public List<Contract> GetAll()
         {
             return this.Contracts.OrderBy(x=> x.ClientName).ToList();
+        }
+
+        public List<Contract> GetByIdStringList(string contratcIds)
+        {
+            var ids = new List<string>(){contratcIds};
+            if(contratcIds.Contains(';'))
+                ids = contratcIds.Split(';').ToList();
+
+            var selecionados = this.Contracts.Where(x => ids.Any(a => a == x.Id)).ToList();
+           selecionados = selecionados.Select(c => {
+                c.unread = false;
+                this.Update(c);
+                return c;
+            }).ToList();
+            
+            return selecionados;
         }
     }
     

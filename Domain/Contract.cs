@@ -15,6 +15,13 @@ namespace GestaoContratosNorus.Domain
         public ContractType Type { get; set; }
         public int Quantity { get; set; }
         public decimal Value { get; set; }
+        public decimal ContractTotal {get { return getContratTotal();} }
+
+        private decimal getContratTotal()
+        {
+            var total = this.Quantity * Value;
+            return total;
+        }
 
         public string StartMonth { get; set; }
         

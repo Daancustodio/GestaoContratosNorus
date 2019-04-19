@@ -10,7 +10,7 @@ namespace GestaoContratosNorus.Domain
        void Remove(string contractId);
        Contract Get(string contractId);
        List<Contract> GetAll();
-
+        List<Contract> GetByIdStringList(string contratcIds);
     }
     
 }

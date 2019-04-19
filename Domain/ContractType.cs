@@ -1,6 +1,6 @@
 namespace GestaoContratosNorus.Domain {
     public enum ContractType {
-        Purchase,
-        Sale
+        Compra,
+        Venda
     }
 }
