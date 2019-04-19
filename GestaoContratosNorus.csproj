@@ -5,7 +5,8 @@
     <UserSecretsId>fe5258af-af25-480f-addb-cb1163ee4684</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" />
-    
+    <PackageReference Include="Microsoft.AspNetCore.App"/>
+    <PackageReference Include="DinkToPdf" Version="1.0.8"/>
+    <PackageReference Include="DinkToPdfIncludesDependencies" Version="1.0.8"/>
   </ItemGroup>
 </Project>

@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using GestaoContratosNorus.Domain;
 using GestaoContratosNorus.Repository;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace GestaoContratosNorus.Controllers
 {
@@ -81,8 +78,7 @@ namespace GestaoContratosNorus.Controllers
             {                
                 return BadRequest(ex);
             }
-        }
-
+        }  
        
     }
 }
