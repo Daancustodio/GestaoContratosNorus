@@ -32,7 +32,9 @@ namespace GestaoContratosNorus.Domain
         }
 
         public void validate(){
-            
+            if(this.Id == Guid.Empty.ToString())
+                this.Id = Guid.NewGuid().ToString().Split("-")[0];
+
             if(string.IsNullOrEmpty(this.ClientName))
                 throw new Exception("Informe o nome do cliente.");
            
