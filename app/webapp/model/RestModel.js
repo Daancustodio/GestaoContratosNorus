@@ -2,61 +2,27 @@ jQuery.sap.require("sap.ui.model.json.JSONModel");
 
 sap.ui.model.json.JSONModel.extend("app.model.RestModel", {	
 		
-	loadDataNew: function(sURL, fnSuccess, fnError, oParameters, bAsync, sType,dataType, bMerge, bCache){
-			
-			var that = this;
+	request: function(sRequestType, sURL, fnSuccess, fnError, oBody, sContentType, dataType){	
+		
+		let that = this;
+		jQuery.ajax({
+            type : sRequestType || "GET",
+            contentType : sContentType ||  "application/json",        
+            contentLanguage: "pt-BR",
+            acceptLanguage: 'pt-BR',
+            url : sURL,
+            dataType : dataType || "json",            
+            data:oBody,
+            
+            crossDomain: true,
+            success : (oData) => {
+            	if(oData && oData.value)
+            		that.setData(oData.value);
+            	if(fnSuccess) fnSuccess(oData);
+            },            
+            error: fnError
 
-			if (bAsync !== false) {
-				bAsync = true;
-			}
-			if (!sType)	{
-				sType = "GET";
-			}
-			if (bCache === undefined) {
-				bCache = this.bCache;
-			}
-
-			if(!dataType){
-				dataType = 'application/json';
-			}
-			
-			this.fireRequestSent({url : sURL, type : sType, async : bAsync, info : "cache="+bCache+";bMerge=" + bMerge});
-
-			jQuery.ajax({
-			  url: sURL,
-			  async: bAsync,
-			  dataType: dataType,
-			  cache: bCache,
-			  data: oParameters,
-			  type: sType,
-			  success: function(oData) {
-				if (!oData) {
-					jQuery.sap.log.fatal("Aconteceu um problema: O serviço não retornou nenhum dado: " + sURL);
-				}
-				that.oDataOrig = {};
-				that.oDataOrig = jQuery.extend(true,{},that.oDataOrig, oData); // Holds a copy of the original data   
-				that.setData(oData, bMerge);
-				that.fireRequestCompleted({url : sURL, type : sType, async : bAsync, info : "cache=false;bMerge=" + bMerge});
-				// call the callback success function if informed
-				if (typeof fnSuccess === 'function') {
-                    fnSuccess(oData);
-                }
-
-			  },
-			  error: function(XMLHttpRequest, textStatus, errorThrown){
-				
-				jQuery.sap.log.fatal("Aconteceu um problema: " + textStatus, XMLHttpRequest.responseText + ","
-							+ XMLHttpRequest.status + "," + XMLHttpRequest.statusText);
-				that.fireRequestCompleted({url : sURL, type : sType, async : bAsync, info : "cache=false;bMerge=" + bMerge});
-				that.fireRequestFailed({message : textStatus,
-					statusCode : XMLHttpRequest.status, statusText : XMLHttpRequest.statusText, responseText : XMLHttpRequest.responseText});
-			  	// call the callback error function if informed
-				if (typeof fnError === 'function') {
-                    fnError({message : textStatus, statusCode : XMLHttpRequest.status, statusText : XMLHttpRequest.statusText, responseText : XMLHttpRequest.responseText, response: XMLHttpRequest.responseJSON});
-                }
-			  }
-			});
-
+        });
 	},
 	
 	getOrigData: function(){
@@ -71,26 +37,25 @@ sap.ui.model.json.JSONModel.extend("app.model.RestModel", {
 		this.oDataOrig = this.getData();
     },
     
-    post:function(url, fnSuccess, fnerror){
-		let data =this.getData();
-       	this.loadDataNew(url, fnSuccess, fnerror, data, true, 'POST');
+    post:function(url, fnSuccess, fnError){
+		let data = JSON.stringify(this.getData());       	
+       	this.request("POST", url, fnSuccess , fnError, data);
     },
     
-    put:function(url, fnSuccess, fnerror){
-		let data = JSON.stringify(this.getData());
-        this.loadDataNew(url, fnSuccess , fnerror, data, true, 'PUT');        
+    put:function(url, fnSuccess, fnError){
+    	let data = JSON.stringify(this.getData());       	
+       	this.request("PUT", url, fnSuccess , fnError, data);    
 	},
-	
-    get:function(url, fnSuccess, fnerror, dataType="json"){		
-        this.loadDataNew(url, fnSuccess , fnerror, null, true, 'GET', dataType);        
+	patch:function(url, fnSuccess, fnError){
+	    	let data = JSON.stringify(this.getData());       	
+	       	this.request("PATCH", url, fnSuccess , fnError, data);    
+	},
+    get:function(url, fnSuccess, fnError, dataType="json"){
+        this.request("GET",url, fnSuccess , fnError, null, null, dataType);        
 	},  
 	
     delete:function(url, fnSuccess, fnerror, dataType="json"){
-        this.loadDataNew(url, fnSuccess , fnerror, null, true, 'DELETE', dataType);        
+		this.request("DELETE",url, fnSuccess , fnerror, null, null, dataType);
 	},
-
-	request: function(url, data, fnSuccess, fnError, method, dataType){		
-		this.loadDataNew(url, fnSuccess, fnError,  data, true, method, dataType);
-		
-	}
+	
 });

@@ -7,54 +7,52 @@ sap.ui.define([
 
 
 	return Controller.extend("app.controller.fragments.Exeption", {
+		connectionError : function(){
+			return [{
+				ExceptionType: 'Error',
+				Message: 'Erro ao acessar o servidor' ,
+				Description: 'Tente novamente mais tarde',
+				Subtitle: 'Tente novamente mais tarde'				
+			}];
+		},
 
-		show: function (exeption) {
-           
-            console.log(exeption)
-			var that = this;
+		generalException : function(msg,sub){
+			console.log(msg)
+			return [{
+				ExceptionType: 'Error',
+				Message: msg,
+			}];
+		},
+		show: function (exeption, sContentDensityClass) {
 			
+			console.log(exeption);
+			exeption = exeption.responseJSON;
+			var that = this;			
+			var oModel = new JSONModel();
 
 			var oMessageTemplate = new sap.m.MessageItem({
-				type: '{type}',
-				title: '{title}',
-				description: '{description}',
-				subtitle: '{subtitle}',
-				counter: '{counter}',
+				type: '{ExceptionType}',
+				title: '{Message}',
+				description: '{Description}',
+				subtitle: '{Subtitle}',
+				counter: '{Counter}',
 				markupDescription: "{markupDescription}",
 				
 			});
-            let titulo =exeption.error || exeption.statusText;
-            let msg =exeption.error_description || exeption.Message;
-			let aMockMessages = [{
-				type: 'Error',
-				title: titulo ,
-				description: msg,
-				subtitle: ''
+
+			
+				var msg;
+				var sub; 
+
+				msg = exeption.Message;	
+				sub = exeption.StackTraceString;	
 				
-			},  {
-				type: 'Warning',
-				title: 'Warning without description',
-				description: ''
-			}, {
-				type: 'Success',
-				title: 'Success message',
-				description: 'First Success message description',
-				subtitle: 'Example of subtitle',
-				counter: 1
-			}, {
-				type: 'Information',
-				title: 'Information message',
-				description: 'First Information message description',
-				subtitle: 'Example of subtitle',
-				counter: 1
-			} ];
+				let messageBulding = this.generalException(msg,sub);
+				
+				oModel.setData(messageBulding);
+			
 
-			var oModel = new JSONModel(),
-				that = this;
-
-			oModel.setData(aMockMessages);
-
-			var oMessageView = new sap.m.MessageView({
+			let oMessageView = new sap.m.MessageView({
 					showDetailsPageHeader: false,
 					itemSelect: function () {
 						oBackButton.setVisible(true);
@@ -63,8 +61,8 @@ sap.ui.define([
 						path: "/",
 						template: oMessageTemplate
 					}
-				}),
-				oBackButton = new sap.m.Button({
+				});
+			let oBackButton = new sap.m.Button({
 					icon: sap.ui.core.IconPool.getIconURI("nav-back"),
 					visible: false,
 					press: function () {
@@ -76,44 +74,41 @@ sap.ui.define([
             oMessageView.setModel(oModel);
             
             
-			var oCloseButton =  new sap.m.Button({
-                icon: sap.ui.core.IconPool.getIconURI("decline"),
+			let oCloseButton =  new sap.m.Button({
+				icon: sap.ui.core.IconPool.getIconURI("decline"),
+				tooltip : "Fechar",
                 press: function () {
 						that._oPopover.close();
 					}
-				}),
+				});
 				
 				
 				
-				oPopoverBar = new sap.m.Bar({
+			let oPopoverBar = new sap.m.Bar({
 					contentLeft: [oBackButton],
-					contentMiddle: [
-						new sap.ui.core.Icon({
-							color: "#bb0000",
-							src: "sap-icon://message-error"}),
+					contentMiddle: [						
 						new sap.m.Text({
 							text: "Messages"
 						})
 					]
-				});
+			});
 
 			this._oPopover = new sap.m.Dialog({
 				customHeader: oPopoverBar,
 				contentWidth: "440px",
 				contentHeight: "440px",
+				stretchOnPhone:true,
 				verticalScrolling: false,
 				modal: true,
 				content: [oMessageView],
 				beginButton: oCloseButton
             });
             
-			this._oPopover.open();//By(button);
-            
+			this._oPopover.addStyleClass(sContentDensityClass);
+			this._oPopover.open();            
 		},
-
-		/* handlePopoverPress: function (oEvent) {
-		} */
-
 	});
+
+
 
 });

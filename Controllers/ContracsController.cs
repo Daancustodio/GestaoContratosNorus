@@ -4,12 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using GestaoContratosNorus.Domain;
 using GestaoContratosNorus.Repository;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace GestaoContratosNorus.Controllers
 {
     [Route("api/contract")]
     [ApiController]
+    [EnableCors("MyPolicy")]
     public class ContracsController : ControllerBase
     {
         private IContractRepository repository = new ContractRepository();
@@ -17,18 +20,9 @@ namespace GestaoContratosNorus.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Contract>> Get()
         {
-            this.repository.Add(new Contract(){
-                Id =1,
-                ClientName = "Daniel custódio",
-                Duration = 6,
-                Start = new DateTime(2019,01,01),
-                Quantity = 4,
-                Type = ContractType.Sale,
-                Value = 500.00m
-            });
-            return this.repository.GetAll();
+            var all = this.repository.GetAll();
+            return Ok(all);
 
-            
         }
 
         // GET api/values/5
@@ -40,21 +34,55 @@ namespace GestaoContratosNorus.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] Contract value)
+        public ActionResult Post([FromBody] Contract value)
         {
-
+            
+            try
+            {
+                var retorno = this.repository.Add(value);
+               return Ok(retorno);    
+            }
+            catch (Exception ex)
+            {                
+                
+               return BadRequest(ex);
+                
+            }
+            
         }
 
         // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPost("Edit")]
+        public ActionResult Put([FromBody] Contract value)
         {
+            try
+            {
+                this.repository.Update(value);
+                return Ok(true);
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
 
         // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpPost("delete")]
+        public ActionResult Delete([FromBody] List<string> ids)
         {
+            try
+            {
+                ids.ForEach(x => {
+                    this.repository.Remove(x);
+                });
+                return Ok(true);               
+            }
+            catch (System.Exception ex)
+            {                
+                return BadRequest(ex);
+            }
         }
+
+       
     }
 }

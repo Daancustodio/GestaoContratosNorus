@@ -5,10 +5,10 @@ namespace GestaoContratosNorus.Domain
 {
     public interface IContractRepository
     {
-       void Add(Contract contract);
-       void Update(Contract contract);
-       void Remove(int contractId);
-       Contract Get(int contractId);
+       Contract Add(Contract contract);
+       Contract Update(Contract contract);
+       void Remove(string contractId);
+       Contract Get(string contractId);
        List<Contract> GetAll();
 
     }
