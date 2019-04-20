@@ -33,11 +33,10 @@ namespace GestaoContratosNorus.Utility
                                     background-color: #535c68;
                                     color: white;
                                 }
-                                #contractPdfTable td {
-                                    min-width:70px;
-                                }
+                                
                                 .total{
                                     width:120px; 
+                                    min-width:120px; 
                                 }
                                 .toLeft {
                                         text-align: end;
@@ -62,7 +61,7 @@ namespace GestaoContratosNorus.Utility
                                         <th id='cliente'>Cliente</th>
                                         <th>Tipo</th>
                                         <th>Inicício</th>
-                                        <th>Duração</th>
+                                        <th>Meses</th>
                                         <th>Qtd</th>
                                         <th>Valor</th>
                                         <th>Total</th>
@@ -78,7 +77,7 @@ namespace GestaoContratosNorus.Utility
                                     <td class='toLeft'>{4}</td>
                                     <td class='toLeft'>{5}</td>
                                     <td class='toLeft total'>{6}</td>
-                                  </tr>", c.ClientName, c.Type.ToString(), c.StartMonth , c.Months + " (meses)", c.Quantity, "R$: " + c.Value, "R$: "+ c.ContractTotal);
+                                  </tr>", c.ClientName, c.Type.ToString(), c.StartMonth , c.Months , c.Quantity, "R$: " + c.Value, "R$: "+ c.ContractTotal);
             }
  
             sb.AppendFormat(@"
