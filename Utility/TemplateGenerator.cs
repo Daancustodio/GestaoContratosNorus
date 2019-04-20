@@ -57,14 +57,14 @@ namespace GestaoContratosNorus.Utility
                                 }
                                 </style>
                                 <div id='header'>
-                                    <h1>NORUS - Relatório de contratos</h1>
+                                    <h1>NORUS - Relatorio de contratos</h1>
                                 </div>                                
                                 
                                 <table id='contractPdfTable'>
                                     <tr>
                                         <th id='cliente'>Cliente</th>
                                         <th>Tipo</th>
-                                        <th>Inicício</th>
+                                        <th>Data</th>
                                         <th>Meses</th>
                                         <th>Qtd</th>
                                         <th>Valor</th>
