@@ -51,6 +51,10 @@ namespace GestaoContratosNorus.Utility
                                     min-width: 190px;
                                     width: 190px;
                                 }
+                                #valor{
+                                    min-width: 80px;
+                                    
+                                }
                                 </style>
                                 <div id='header'>
                                     <h1>NORUS - Relatório de contratos</h1>
@@ -75,7 +79,7 @@ namespace GestaoContratosNorus.Utility
                                     <td class='toLeft'>{2}</td>
                                     <td>{3}</td>
                                     <td class='toLeft'>{4}</td>
-                                    <td class='toLeft'>{5}</td>
+                                    <td id='valor' class='toLeft'>{5}</td>
                                     <td class='toLeft total'>{6}</td>
                                   </tr>", c.ClientName, c.Type.ToString(), c.StartMonth , c.Months , c.Quantity, "R$: " + c.Value, "R$: "+ c.ContractTotal);
             }
