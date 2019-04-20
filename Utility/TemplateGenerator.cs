@@ -34,7 +34,7 @@ namespace GestaoContratosNorus.Utility
                                     color: white;
                                 }
                                 #contractPdfTable td {
-                                    min-width:70px;
+                                    min-width:40px;
                                 }
                                 .total{
                                     width:120px; 
