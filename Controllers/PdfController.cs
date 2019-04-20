@@ -14,7 +14,7 @@ using Newtonsoft.Json;
 
 namespace GestaoContratosNorus.Controllers
 {
-    [Route("api/pdf")]
+    [Route("api")]
     [ApiController]
     [EnableCors("MyPolicy")]    
     public class PdfCreatorController : ControllerBase
@@ -27,7 +27,7 @@ namespace GestaoContratosNorus.Controllers
             _converter = converter;
         }
  
-        [HttpGet("{contratcIds}/{request}")]
+        [HttpGet("pdf/{contratcIds}/{request}")]
         public IActionResult CreatePDF(string contratcIds, string request)
         {
             try
@@ -48,6 +48,23 @@ namespace GestaoContratosNorus.Controllers
                 _converter.Convert(pdf);
                 var buffer = System.IO.File.ReadAllBytes(this._PDFLocale);               
                 return File(buffer, "application/pdf");
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
+            }          
+        }
+
+        [HttpGet("html/{contratcIds}/{request}")]
+        public IActionResult CreateHtmlString(string contratcIds, string request)
+        {
+            try
+            {
+                IContractRepository Repository = new ContractRepository();
+                List<Contract> contratcs = Repository.GetByIdStringList(contratcIds);
+                var htmlContent = TemplateGenerator.GetHTMLString(contratcs, request);                             
+                return Content(htmlContent, "text/html");
             }
             catch (System.Exception)
             {

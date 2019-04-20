@@ -13,6 +13,7 @@ namespace GestaoContratosNorus.Utility
             sb.Append(@"
                         <html>
                             <head>
+                            <meta charset='UTF-8'>
                             <style>
                                 #contractPdfTable {
                                 font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
