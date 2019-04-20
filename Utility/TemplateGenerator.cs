@@ -11,45 +11,55 @@ namespace GestaoContratosNorus.Utility
         {
             var sb = new StringBuilder();
             sb.Append(@"
-                        <html>
-                            <head>
-                            <meta charset='UTF-8'>
-                            <style>
+                        
+                            <div>
+                                <style>
                                 #contractPdfTable {
-                                font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
-                                border-collapse: collapse;
-                                width: 100%;
+                                    font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
+                                    min-width: 600px;
+                                    width: 600px;
                                 }
 
                                 #contractPdfTable td, #contractPdfTable th {
-                                border: 1px solid #ddd;
-                                padding: 8px;
+                                    border: 1px solid #ddd;
+                                    padding: 1px;                 
                                 }
 
                                 #contractPdfTable tr:nth-child(even){background-color: #f2f2f2;}
 
-                                #contractPdfTable tr:hover {background-color: #ddd;}
-
                                 #contractPdfTable th {
-                                padding-top: 12px;
-                                padding-bottom: 12px;
-                                text-align: left;
-                                background-color: #0077c8;
-                                color: white;
+                                    padding: 4px;
+                                    text-align: left;
+                                    background-color: #535c68;
+                                    color: white;
+                                }
+                                #contractPdfTable td {
+                                    min-width:90px;
+                                }
+                                .total{
+                                    width:120px; 
                                 }
                                 .toLeft {
                                         text-align: end;
                                 }
+                                #header{
+                                    whidth: 100%;
+                                    h1 {
+                                        diplay: block;
+                                    }
+                                }
+                                #cliente{
+                                    min-width: 190px;
+                                    width: 190px;
+                                }
                                 </style>
-                            </head>
-                            <body>
-                                <div class='header'>
-                                <h1>NORUS - Relatório de contratos</h1></div>
+                                <div id='header'>
+                                    <h1>NORUS - Relatório de contratos</h1>
+                                </div>                                
                                 
-                                </div>
                                 <table id='contractPdfTable'>
                                     <tr>
-                                        <th>Cliente</th>
+                                        <th id='cliente'>Cliente</th>
                                         <th>Tipo</th>
                                         <th>Inicício</th>
                                         <th>Duração</th>
@@ -67,15 +77,17 @@ namespace GestaoContratosNorus.Utility
                                     <td>{3}</td>
                                     <td class='toLeft'>{4}</td>
                                     <td class='toLeft'>{5}</td>
-                                    <td class='toLeft'>{6}</td>
+                                    <td class='toLeft total'>{6}</td>
                                   </tr>", c.ClientName, c.Type.ToString(), c.StartMonth , c.Months + " (meses)", c.Quantity, "R$: " + c.Value, "R$: "+ c.ContractTotal);
             }
  
             sb.AppendFormat(@"
                                 </table>
+                                <br />
+                                
                                 Solicitado por {0} {1}
-                            </body>
-                        </html>",solicitante, DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"));
+                            </div>
+                        ",solicitante, DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"));
  
             return sb.ToString();
         }
